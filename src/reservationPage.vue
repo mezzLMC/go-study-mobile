@@ -19,20 +19,20 @@
                 </button>
         </div>    
             <div id="calendar">
-                <vue-cal ref="vuecal" id="vucal" v-bind:selected-date="selectedDate" v-bind:on-event-click="deleteHour" class="vuecal--full-height-delete" v-bind:editable-events="{ title: false, drag: false, resize: true, delete: true, create: false }" v-bind:hide-weekdays="[7]"  v-bind:time-step="30" v-bind:time-from="22 * 30" v-bind:time-to="31 * 30" v-bind:disable-views="['day']" :cell-click-hold="false" :drag-to-create-event="false" v-bind:events="events" @cell-click="selectHalf($event)" locale="fr"></vue-cal>
+                <vue-cal ref="vuecal" style="height: 250px" id="vucal" v-bind:selected-date="selectedDate" v-bind:on-event-click="deleteHour" class="vuecal--full-height-delete" v-bind:editable-events="{ title: false, drag: false, resize: true, delete: true, create: false }" v-bind:hide-weekdays="[7]"  v-bind:time-step="30" v-bind:time-from="22 * 30" v-bind:time-to="31 * 30" v-bind:disable-views="['day']" :cell-click-hold="false" :drag-to-create-event="false" v-bind:events="events" @cell-click="selectHalf($event)" locale="fr"></vue-cal>
             </div>
         <div class="col-sm" id="recap">
             <div id="before">
 
             </div>
-            <div id="after" v-bind:style="{display: none}"></div>
+            <div id="after"></div>
         </div>
     </div>
 </div>
 </template>
 <script>
 import VueCal from "vue-cal"
-import CourseDetails from "./courseDetails.vue"
+//import CourseDetails from "./courseDetails.vue"
 import 'vue-cal/dist/drag-and-drop.js'
 import './css/vuecal.css'
 import './css/payement.css'
@@ -72,7 +72,7 @@ export default {
         },
         watchSunday(){
             if(this.selectedDate.getDay() == 0){
-                this.selectedDate = this.selectedDate.setDate(this.selectedDate.getDate()+1)
+                this.selectedDate = new Date(this.selectedDate.setDate(this.selectedDate.getDate()+1))
             } 
         },
         nextWeek(){
@@ -94,9 +94,10 @@ export default {
         selectHalf(eventTime,target){
             let finalTime = new Date(eventTime)
             if(!this.dateIsPaste(finalTime,new Date())){
-                let finalTime = new Date(eventTime)
-                finalTime.getMinutes()>=30 ? finalTime.setMinutes(30) : finalTime.setMinutes(0)
+            let finalTime = new Date(eventTime)
+            finalTime.getMinutes()>=30 ? finalTime.setMinutes(30) : finalTime.setMinutes(0)
             let endTime = new Date(finalTime)
+            console.log("pushed 2")
             endTime.setHours(endTime.getHours()+1)
             console.log(finalTime +" | "+ endTime)
             this.events.push({
@@ -105,10 +106,9 @@ export default {
                 deletable: true,
                 resizable: false,
                 draggable: false,
-                content: "<div class='selectedHour'> <div class='top-bar'</div> <div class='bottom-bar'> </div>  </div>",
+                content: "<div class='selectedHour'> <div class='top-bar'> </div> <div class='bottom-bar'> </div>  </div>",
                 class:"selHour"
             })
-
             this.hoursCounter++;
             this.selectedHours.push(finalTime)
             }
@@ -154,8 +154,7 @@ export default {
         }
     },
     components: {
-        VueCal,
-        CourseDetails,
+        VueCal
     },
     updated(){
         //setTimeout(()=>this.formatDate(),400)
@@ -163,8 +162,7 @@ export default {
     },
     mounted(){
         //this.getCalendarBusy()
-        this.watchSunday()
-        Array.from(document.getElementsByClassName("vuecal__time-cell")).forEach(e=> e.style.height="60px")
+        //this.watchSunday()
         //setTimeout(()=>this.formatDate(),400)
         let cellArray = Array.from(document.getElementsByClassName("vuecal__time-cell"))
         let labelArr = Array.from(document.getElementsByClassName("vuecal__time-cell-label"))
@@ -334,12 +332,11 @@ export default {
 .selectedHour{
     background-color: var(--purple-light);
     position: relative;
-    top: 50%;
     margin-top: 1px;
     left: 50%;
-    transform: translateY(-50%) translateX(-50%);
+    transform: translateX(-50%);
     height: 100%;
-    width: 95%;
+    width: 80%;
     border-radius: 4px;
 }
 .busy{

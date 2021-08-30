@@ -10,10 +10,10 @@ body{
     font-size: 55px;
     line-height: 56px;
     font-weight: 700;
-    font-family: "inter";
+    font-family: "inter";   
 }
 .button{
-    border-radius: 48px;  
+    border-radius: 48px;    
 }
 .outline-light{
     border: 2px solid var(--purple-light);

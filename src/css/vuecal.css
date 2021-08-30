@@ -340,7 +340,6 @@
     transition: left 0.3s, width 0.3s, -webkit-box-shadow 0.3s;
     transition: box-shadow 0.3s, left 0.3s, width 0.3s;
     transition: box-shadow 0.3s, left 0.3s, width 0.3s, -webkit-box-shadow 0.3s;
-    overflow: scroll;
 }
 .vuecal--no-time .vuecal__event {
     min-height: 8px;
@@ -425,7 +424,7 @@
     right: 0;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
+    display: none;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
@@ -663,7 +662,7 @@
 }
 .vuecal--overflow-x.vuecal--week-view .vuecal__cell,
 .vuecal__cell-split {
-    overflow: scroll;
+    overflow: hidden;
 }
 .vuecal__no-event {
     padding-top: 1em;
@@ -810,7 +809,6 @@
 }
 .vuecal__body {
     position: relative;
-    height: 420px;
 
 }
 .vuecal__all-day {
@@ -852,7 +850,7 @@
 .vuecal__bg {
     overflow: auto;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
     min-height: 60px;
     position: relative;
     width: 100%;
@@ -890,7 +888,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    overflow: scroll;
+    overflow: hidden;
     visibility: hidden;
     z-index: -1;
 }
@@ -935,10 +933,6 @@
     padding-right: 2px;
     font-size: 0.9em;
 }
-
-
-
-
 
 .vuecal__time-column .vuecal__time-cell-line {
     content: "";
